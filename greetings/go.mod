@@ -1,3 +1,3 @@
-module example.com/greetings
+module github.com/yaseenranta/golang-learning/greetings
 
 go 1.16
