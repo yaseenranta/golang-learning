@@ -3,6 +3,8 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"os"
+	"strings"
 	"time"
 )
 
@@ -38,10 +40,99 @@ type FormatDate struct {
 }
 
 func (f FormatDate) MarshalJSON() ([]byte, error) {
+	if f.Time.IsZero() {
+		return []byte("null"), nil
+	}
+
 	return []byte(fmt.Sprintf("\"%s\"", f.Format(dateFormat))), nil
+}
+func (f *FormatDate) UnmarshalJSON(v []byte) error {
+
+	if f.Time.IsZero() {
+		return nil
+	}
+
+	time, err := time.Parse(dateFormat, strings.ReplaceAll(string(v), "\"", ""))
+
+	if err != nil {
+		panic(err)
+	}
+
+	f.Time = time
+
+	return nil
+}
+
+func MarshalPractice(p *Person) {
+
+	person, err := json.Marshal(p)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println(string(person))
+}
+
+func UnmarshalPractice(p *Person) {
+
+	jsonBytes, err := os.ReadFile("out.json")
+
+	if err != nil {
+		panic(err)
+	}
+
+	if err := json.Unmarshal(jsonBytes, p); err != nil {
+		panic(err)
+	}
+	fmt.Println("Unmarshal func")
+	fmt.Printf("%+v\n", p)
+
+	// reqBytes := new(bytes.Buffer)
+
+	// json.NewEncoder(reqBytes).Encode(p)
+	// fmt.Println(reqBytes.String())
+}
+
+func DecoderPractice(p *Person) {
+	f, err := os.Open("out.json")
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer f.Close()
+
+	fmt.Println(p)
+
+	err = json.NewDecoder(f).Decode(p)
+
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Println("Decode func")
+	fmt.Printf("%+v\n", p)
+
+}
+
+func EncoderPractice(p *Person) {
+	file, err := os.OpenFile("out2.json", os.O_CREATE|os.O_WRONLY, 0600)
+
+	if err != nil {
+		panic(err)
+	}
+
+	defer file.Close()
+
+	if err = json.NewEncoder(file).Encode(p); err != nil {
+		panic(err)
+	}
+
 }
 
 func main() {
+
 	t := time.Now()
 	p := Person{
 		Name:       "Muhammad Yaseen",
@@ -58,11 +149,8 @@ func main() {
 		CreatedAt: FormatDate{t},
 	}
 
-	person, err := json.Marshal(p)
-
-	if err != nil {
-		panic(err)
-	}
-
-	fmt.Println(string(person))
+	MarshalPractice(&p)
+	UnmarshalPractice(&p)
+	DecoderPractice(&p)
+	EncoderPractice(&p)
 }
