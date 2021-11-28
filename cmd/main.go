@@ -9,13 +9,6 @@ import (
 	"github.com/yaseenranta/golang-learning/templates"
 )
 
-/**
-JSON Package Notes
-	json:"-" remove field from json
-	omitempty remove field when its empty
-	 MarshalJSON implement formating field
-**/
-
 func MarshalPractice(p *templates.Person) {
 
 	person, err := json.Marshal(p)
