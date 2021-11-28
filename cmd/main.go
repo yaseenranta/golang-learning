@@ -41,10 +41,6 @@ func UnmarshalPractice(p *templates.Person) {
 	fmt.Println("Unmarshal func")
 	fmt.Printf("%+v\n", p)
 
-	// reqBytes := new(bytes.Buffer)
-
-	// json.NewEncoder(reqBytes).Encode(p)
-	// fmt.Println(reqBytes.String())
 }
 
 func DecoderPractice(p *templates.Person) {
