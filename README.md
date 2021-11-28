@@ -1,9 +1,24 @@
-# golang-learning
+# GoLang learning Roadmap
 
-```
-//create module
-go mod init example.com/greetings
-//replace module with your local module
-go mod edit -replace=example.com/greetings=../greetings
-//synchronize the module
-go mod tidy
+
+## `Basics of Go`
+    Variables
+    Constants
+    If..Else
+    Switch..Case
+    Operators
+    Loops
+    Function
+    Array
+    Slice
+    Maps
+    Struct
+    Pointer
+    Interface
+    
+## `Standard Packages`
+    Json
+
+## `Other Packages`
+    Validation
+    
