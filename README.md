@@ -2,6 +2,7 @@
 
 
 ```Basics of Go```
+```
     Variables
     Constants
     If..Else
@@ -15,7 +16,7 @@
     Struct
     Pointer
     Interface
-    
+```    
 ## `Standard Packages`
     Json
 
