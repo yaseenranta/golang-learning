@@ -7,7 +7,8 @@ import (
 )
 
 func main() {
-	message := basics.Greetings("Go")
 
-	fmt.Println(message)
+	basics.Greetings("Go")
+
+	fmt.Println(basics.Main())
 }
